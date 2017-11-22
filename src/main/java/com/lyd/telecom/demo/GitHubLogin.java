@@ -1,4 +1,4 @@
-package com.lyd.telecom;
+package com.lyd.telecom.demo;
 
 import com.lyd.telecom.enums.BrowserTypeEnum;
 import org.openqa.selenium.By;

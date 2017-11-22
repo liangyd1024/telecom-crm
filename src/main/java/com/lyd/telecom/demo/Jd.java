@@ -1,4 +1,4 @@
-package com.lyd.telecom;
+package com.lyd.telecom.demo;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -21,8 +21,8 @@ public class Jd {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello World!");
 //        System.setProperty("webdriver.ie.driver","C:\\Users\\aaa\\Desktop/IEDriverServer.exe");
-        System.setProperty("webdriver.chrome.driver","G:\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\chromedriver.exe");
 //        webDriver = new InternetExplorerDriver();
+        System.setProperty("webdriver.chrome.driver","G:\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\chromedriver.exe");
         webDriver = new ChromeDriver();
         WebDriver.Options options = webDriver.manage();
         webDriver.get("https://www.jd.com/");

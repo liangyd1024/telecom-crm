@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>手机号</title>
+</head>
+<body>
+    <h1 th:inline="text">输入手机号</h1>
+    <form action="toEleLogin" >
+        <div>
+            <div>
+                手机号:
+                <input type="tel" name="phone" maxlength="11" placeholder="输入手机号"/>
+            </div>
+            <div>
+                <input type="submit" value="提交"/>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

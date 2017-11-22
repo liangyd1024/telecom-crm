@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>短信验证码</title>
+</head>
+<body>
+    <h1 th:inline="text">输入短信验证码</h1>
+    <form action="eleLogin" >
+        <div>
+            <div>
+                验证码:
+                <input type="tel" name="smsCode" maxlength="6" placeholder="输入验证码"/>
+            </div>
+            <div>
+                <input type="submit" value="提交"/>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
