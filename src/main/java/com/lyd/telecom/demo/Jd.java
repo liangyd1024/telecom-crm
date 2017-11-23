@@ -1,11 +1,13 @@
 package com.lyd.telecom.demo;
 
 import com.lyd.telecom.config.SysConfig;
+import com.lyd.telecom.enums.BrowserTypeEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.List;
 import java.util.Set;
@@ -21,9 +23,9 @@ public class Jd {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello World!");
-//        System.setProperty("webdriver.ie.driver","C:\\Users\\aaa\\Desktop/IEDriverServer.exe");
+//        System.setProperty(BrowserTypeEnum.IE.getType(),SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\IEDriverServer.exe");
 //        webDriver = new InternetExplorerDriver();
-        System.setProperty("webdriver.chrome.driver", SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
+        System.setProperty(BrowserTypeEnum.CHROME.getType(), SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
         webDriver = new ChromeDriver();
         WebDriver.Options options = webDriver.manage();
         webDriver.get("https://www.jd.com/");

@@ -20,14 +20,14 @@ public class GitHubLogin {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello World!");
-        System.setProperty(BrowserTypeEnum.IE.getType(),SysConfig.PROJECT_PATH+"\\src\\\\main\\resources\\driver\\IEDriverServer.exe");
-        webDriver = new InternetExplorerDriver();
-//        System.setProperty("webdriver.chrome.driver", SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
-//        webDriver = new ChromeDriver();
+//        System.setProperty(BrowserTypeEnum.IE.getType(),SysConfig.PROJECT_PATH+"\\src\\\\main\\resources\\driver\\IEDriverServer.exe");
+//        webDriver = new InternetExplorerDriver();
+        System.setProperty(BrowserTypeEnum.CHROME.getType(), SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
+        webDriver = new ChromeDriver();
 
-//        System.setProperty(BrowserTypeEnum.FIREFOX_BIN.getType(),"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
-//        System.setProperty("webdriver.firefox.marionette","G:\\\\Project\\\\My\\\\telecom-crm\\\\src\\\\main\\\\resources\\\\driver\\\\geckodriver_64.exe");
-//        webDriver = new FirefoxDriver();
+        System.setProperty(BrowserTypeEnum.FIREFOX_BIN.getType(),"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+        System.setProperty(BrowserTypeEnum.FIREFOX.getType(),SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\geckodriver_64.exe");
+        webDriver = new FirefoxDriver();
 
         webDriver.get("https://github.com/login");
         webDriver.manage().window().maximize();

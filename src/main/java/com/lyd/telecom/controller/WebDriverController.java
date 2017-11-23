@@ -1,6 +1,6 @@
 package com.lyd.telecom.controller;
 
-import com.lyd.telecom.config.SysConfig;
+import com.lyd.telecom.cache.SessionCache;
 import com.lyd.telecom.enums.BrowserTypeEnum;
 import com.lyd.telecom.webdriver.WebDriverFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,14 +21,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class WebDriverController {
 
-    private static WebDriver webDriver;
-
-//    @PostConstruct
-    public void init(){
-        System.setProperty(
-                BrowserTypeEnum.CHROME.getType(),
-                SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
-    }
 
     @RequestMapping("/index")
     public String index() {
@@ -35,24 +28,25 @@ public class WebDriverController {
     }
 
     @RequestMapping("/toEleLogin")
-    public String toEleLogin(String phone){
-        log.info("call toEleLogin phone:{}",phone);
-        new EleThread(phone).start();
+    public String toEleLogin(String phone, HttpSession httpSession){
+        log.info("call toEleLogin phone:{},sessionId:{}",phone,httpSession.getId());
+        new EleThread(httpSession.getId(),phone).start();
         return "sms";
     }
 
     @RequestMapping("/eleLogin")
-    public String eleLogin(String smsCode, ModelMap modelMap){
+    public String eleLogin(String smsCode, ModelMap modelMap, HttpSession httpSession){
         log.info("call toEleLogin smsCode:{}",smsCode);
-        BaseController.SMS_CODE = smsCode;
+        httpSession.setAttribute("smsCode",smsCode);
+        SessionCache.SMS_CODE_MAP.put(httpSession.getId(),smsCode);
         modelMap.put("result","登录成功");
         return "result";
     }
 
     @RequestMapping("/loadUrl")
-    public String loadUrl(String url,ModelMap modelMap){
+    public String loadUrl(String url,ModelMap modelMap, HttpSession httpSession){
         log.info("call loadUrl:{}",url);
-        new LoadUrlThread(url).start();
+        new LoadUrlThread(httpSession.getId(),url).start();
         modelMap.put("result","跳转成功");
         return "result";
     }
@@ -61,13 +55,16 @@ public class WebDriverController {
 
         private String url;
 
-        public LoadUrlThread(String url){
+        private String sessionId;
+
+        public LoadUrlThread(String sessionId,String url){
+            this.sessionId = sessionId;
             this.url = url;
         }
 
         @Override
         public void run() {
-            webDriver.navigate().to(url);
+            SessionCache.WEB_DRIVER_MAP.get(sessionId).navigate().to(url);
         }
     }
 
@@ -76,17 +73,19 @@ public class WebDriverController {
 
         private String phone;
 
-        public EleThread(String phone){
+        private String sessionId;
+
+        public EleThread(String sessionId,String phone){
+            this.sessionId = sessionId;
             this.phone = phone;
         }
 
         @Override
         public void run() {
 
-            if(null != webDriver){
-                webDriver.quit();
-            }
-            webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.IE);
+            WebDriver webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.CHROME);
+            SessionCache.WEB_DRIVER_MAP.put(sessionId,webDriver);
+
             webDriver.get("https://h5.ele.me/login/");
             webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -96,7 +95,7 @@ public class WebDriverController {
             WebElement smsCodeButtonWebElement = webDriver.findElement(By.className("CountButton-3e-kd"));
             smsCodeButtonWebElement.click();
 
-            while(null == BaseController.SMS_CODE){
+            while(!SessionCache.SMS_CODE_MAP.containsKey(sessionId)){
                 log.info("wait smsCode...");
                 try {
                     TimeUnit.SECONDS.sleep(2);
@@ -106,7 +105,8 @@ public class WebDriverController {
             }
 
             WebElement smsCodeWebElement = webDriver.findElement(By.cssSelector("body > div.App-1EAON > div.App-3Q8Qb > div:nth-child(2) > form > section:nth-child(2) > input[type=\"tel\"]"));
-            smsCodeWebElement.sendKeys(BaseController.SMS_CODE);
+            smsCodeWebElement.sendKeys(SessionCache.SMS_CODE_MAP.get(sessionId));
+            SessionCache.SMS_CODE_MAP.remove(sessionId);
 
             WebElement loginButtonWebElement = webDriver.findElement(By.className("SubmitButton-2wG4T"));
             loginButtonWebElement.click();

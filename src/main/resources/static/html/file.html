@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>文件</title>
+</head>
+<body>
+    <h1 th:inline="text">上传文件</h1>
+    <form action="uploadFile"  enctype="multipart/form-data" method="post">
+        <div>
+            <div>
+                选择文件(查询设备证件号):
+                <input type="file" name="certNoFile"/>
+            </div>
+            <div>
+                选择文件(查询设备ICCID号):
+                <input type="file" name="ICCIDFile"/>
+            </div>
+            <div>
+                <input type="submit" value="提交"/>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
