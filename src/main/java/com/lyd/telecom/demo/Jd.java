@@ -1,5 +1,6 @@
 package com.lyd.telecom.demo;
 
+import com.lyd.telecom.config.SysConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +23,7 @@ public class Jd {
         System.out.println("Hello World!");
 //        System.setProperty("webdriver.ie.driver","C:\\Users\\aaa\\Desktop/IEDriverServer.exe");
 //        webDriver = new InternetExplorerDriver();
-        System.setProperty("webdriver.chrome.driver","G:\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
         webDriver = new ChromeDriver();
         WebDriver.Options options = webDriver.manage();
         webDriver.get("https://www.jd.com/");

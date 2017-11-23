@@ -1,17 +1,16 @@
 package com.lyd.telecom.controller;
 
+import com.lyd.telecom.config.SysConfig;
 import com.lyd.telecom.enums.BrowserTypeEnum;
+import com.lyd.telecom.webdriver.WebDriverFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,12 +22,11 @@ public class WebDriverController {
 
     private static WebDriver webDriver;
 
-    @PostConstruct
+//    @PostConstruct
     public void init(){
         System.setProperty(
                 BrowserTypeEnum.CHROME.getType(),
-                "D:\\工作\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\chromedriver.exe");
-
+                SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
     }
 
     @RequestMapping("/index")
@@ -51,6 +49,28 @@ public class WebDriverController {
         return "result";
     }
 
+    @RequestMapping("/loadUrl")
+    public String loadUrl(String url,ModelMap modelMap){
+        log.info("call loadUrl:{}",url);
+        new LoadUrlThread(url).start();
+        modelMap.put("result","跳转成功");
+        return "result";
+    }
+
+    public static class LoadUrlThread extends Thread{
+
+        private String url;
+
+        public LoadUrlThread(String url){
+            this.url = url;
+        }
+
+        @Override
+        public void run() {
+            webDriver.navigate().to(url);
+        }
+    }
+
 
     public static class EleThread extends Thread{
 
@@ -66,7 +86,7 @@ public class WebDriverController {
             if(null != webDriver){
                 webDriver.quit();
             }
-            webDriver = new ChromeDriver();
+            webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.IE);
             webDriver.get("https://h5.ele.me/login/");
             webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -97,19 +117,28 @@ public class WebDriverController {
 //                alert.accept();
 //            }
 
-            WebElement orderWebElement = webDriver.findElement(By.xpath("/html/body/div[1]/div[3]/footer/div/a[3]/svg"));
-            orderWebElement.click();
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                log.error("call run sleep InterruptedException:{}",e);
+            }
+
+            WebElement searchWebElement = webDriver.findElement(By.cssSelector("body > div.wrapper > div:nth-child(3) > div.search-wrapper > div > a"));
+            searchWebElement.click();
+
+            WebElement searchInputWebElement = webDriver.findElement(By.cssSelector("body > div > section > form > input"));
+            searchInputWebElement.sendKeys("一点点");
+
+            WebElement searchButtonWebElement = webDriver.findElement(By.cssSelector("body > div > section > form > button"));
+            searchButtonWebElement.click();
 
         }
     }
 
 
-    public static void main(String[] args) {
-        WebDriverController webDriverController = new WebDriverController();
-        webDriverController.init();
 
-        EleThread eleThread = new EleThread ("18116154560");
-        eleThread.run();
+    public static void main(String[] args) {
+        System.out.println(System.getProperty("user.dir"));
     }
 
 }

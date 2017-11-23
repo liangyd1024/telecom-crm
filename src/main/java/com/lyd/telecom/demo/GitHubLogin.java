@@ -1,5 +1,6 @@
 package com.lyd.telecom.demo;
 
+import com.lyd.telecom.config.SysConfig;
 import com.lyd.telecom.enums.BrowserTypeEnum;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,10 +20,10 @@ public class GitHubLogin {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello World!");
-//        System.setProperty("webdriver.ie.driver","G:\\Project\\My\\telecom-crm\\src\\\\main\\resources\\driver\\IEDriverServer.exe");
-//        webDriver = new InternetExplorerDriver();
-        System.setProperty("webdriver.chrome.driver","G:\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\chromedriver.exe");
-        webDriver = new ChromeDriver();
+        System.setProperty(BrowserTypeEnum.IE.getType(),SysConfig.PROJECT_PATH+"\\src\\\\main\\resources\\driver\\IEDriverServer.exe");
+        webDriver = new InternetExplorerDriver();
+//        System.setProperty("webdriver.chrome.driver", SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
+//        webDriver = new ChromeDriver();
 
 //        System.setProperty(BrowserTypeEnum.FIREFOX_BIN.getType(),"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
 //        System.setProperty("webdriver.firefox.marionette","G:\\\\Project\\\\My\\\\telecom-crm\\\\src\\\\main\\\\resources\\\\driver\\\\geckodriver_64.exe");

@@ -1,5 +1,6 @@
 package com.lyd.telecom.demo;
 
+import com.lyd.telecom.config.SysConfig;
 import com.lyd.telecom.enums.BrowserTypeEnum;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,9 +23,9 @@ public class ManagerWeb {
         try {
 
             System.out.println("Hello World!");
-//            System.setProperty(BrowserTypeEnum.IE.getType(),"G:\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\IEDriverServer.exe");
+//            System.setProperty(BrowserTypeEnum.IE.getType(),SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\IEDriverServer.exe");
 //            webDriver = new InternetExplorerDriver();
-            System.setProperty(BrowserTypeEnum.CHROME.getType(),"G:\\Project\\My\\telecom-crm\\src\\main\\resources\\driver\\chromedriver.exe");
+            System.setProperty(BrowserTypeEnum.CHROME.getType(), SysConfig.PROJECT_PATH+"\\src\\main\\resources\\driver\\chromedriver.exe");
             webDriver = new ChromeDriver();
             webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             webDriver.manage().window().maximize();

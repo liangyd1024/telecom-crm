@@ -15,8 +15,14 @@ import lombok.Getter;
 public enum BrowserTypeEnum {
 
     CHROME("webdriver.chrome.driver","谷歌"),
+
     IE("webdriver.ie.driver","IE"),
-    FIREFOX("webdriver.firefox.driver","火狐"),
+
+    HTML("","无浏览器"),
+
+    SAFARI("","SAFARI"),
+
+    FIREFOX("webdriver.firefox.marionette","火狐驱动"),
     FIREFOX_BIN("webdriver.firefox.bin","火狐"),
 
     ;
@@ -25,5 +31,24 @@ public enum BrowserTypeEnum {
     private String type;
 
     private String desc;
+
+
+    @Getter
+    @AllArgsConstructor
+    public enum WebDriverType{
+
+        IE("/src/main/resources/driver/IEDriverServer.exe","IE驱动"),
+
+        CHROME_WINDOWS("/src/main/resources/driver/chromedriver.exe","windows谷歌驱动"),
+
+        FIREFOX_WINDOWS_64("/src/main/resources/driver/geckodriver_64.exe","windows64火狐驱动"),
+        FIREFOX_WINDOWS_32("/src/main/resources/driver/geckodriver_32.exe","windows32火狐驱动"),
+
+        ;
+
+        private String path;
+
+        private String desc;
+    }
 
 }
