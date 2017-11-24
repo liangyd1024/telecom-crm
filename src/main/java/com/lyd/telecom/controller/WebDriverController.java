@@ -83,7 +83,7 @@ public class WebDriverController {
         @Override
         public void run() {
 
-            WebDriver webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.CHROME);
+            WebDriver webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.IE);
             SessionCache.WEB_DRIVER_MAP.put(sessionId,webDriver);
 
             webDriver.get("https://h5.ele.me/login/");

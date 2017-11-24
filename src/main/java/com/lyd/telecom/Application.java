@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * <p>
  * #
  * </p>
- * User: lyd Date: 2017/9/13 ProjectName:spring-boot-cloud Version: 1.0
+ * UserReqDto: lyd Date: 2017/9/13 ProjectName:spring-boot-cloud Version: 1.0
  */
 @SpringBootApplication
 public class Application {

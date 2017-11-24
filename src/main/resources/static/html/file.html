@@ -3,23 +3,72 @@
 <head>
     <meta charset="UTF-8"/>
     <title>文件</title>
+    <script type="text/javascript" src="../js/jquery-1.12.3.min.js"></script>
 </head>
 <body>
     <h1 th:inline="text">上传文件</h1>
-    <form action="uploadFile"  enctype="multipart/form-data" method="post">
+
+    <form id="uploadFile" enctype="multipart/form-data" >
         <div>
             <div>
                 选择文件(查询设备证件号):
                 <input type="file" name="certNoFile"/>
-            </div>
-            <div>
-                选择文件(查询设备ICCID号):
-                <input type="file" name="ICCIDFile"/>
-            </div>
-            <div>
-                <input type="submit" value="提交"/>
+                <input type="button" value="上传" onclick="upload()"/>
             </div>
         </div>
     </form>
+
+    <div>
+        <input type="button" value="下载" onclick="download()"/>
+    </div>
+
+    <script>
+
+        function upload(){
+            $.ajax({
+                url: "/uploadFile",
+                type: 'post',
+                processData: false,
+                contentType: false,
+                data: new FormData($("#uploadFile")[0]),
+                success: function (resp) {
+                    if("success" === resp){
+                        alert("上传成功");
+                    }else if("processing" === resp){
+                        alert("文件正在处理中");
+                    }else{
+                        alert("上传失败");
+                    }
+                }
+            });
+        }
+
+        function download(){
+            $.ajax({
+                url: "/download",
+                type: 'post',
+                data: {},
+                success: function (data,status,response) {
+                    console.info(status);
+                    console.info(data);
+                    console.info(response.status);
+                    if(200 === response.status){
+                        var blob = new Blob([data]);
+                        var a = document.createElement('a');
+                        a.download = Date.now()+'_download.txt';
+                        a.href = window.URL.createObjectURL(blob);
+                        a.click();
+                    }else if(204 === response.status){
+                        alert("暂无可下载的文件");
+                    }else {
+                        alert("系统繁忙");
+                    }
+
+                }
+            });
+        }
+
+    </script>
+
 </body>
 </html>

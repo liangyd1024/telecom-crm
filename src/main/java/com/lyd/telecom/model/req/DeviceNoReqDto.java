@@ -1,4 +1,4 @@
-package com.lyd.telecom.model;
+package com.lyd.telecom.model.req;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * Created by aaa on 2017/11/24.
  */
 @Data
-public class DeviceIdNumberReqDto {
+public class DeviceNoReqDto {
 
     private String deviceNo;
 

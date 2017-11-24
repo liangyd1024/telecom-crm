@@ -5,7 +5,7 @@ package com.lyd.telecom.config;
  * <p>
  * #
  * </p>
- * User: lyd Date: 2017/11/23 ProjectName:crm Version: 1.0
+ * UserReqDto: lyd Date: 2017/11/23 ProjectName:crm Version: 1.0
  */
 public final class SysConfig {
 

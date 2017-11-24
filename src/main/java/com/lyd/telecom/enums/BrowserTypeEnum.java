@@ -8,7 +8,7 @@ import lombok.Getter;
  * <p>
  * #
  * </p>
- * User: lyd Date: 2017/11/22 ProjectName:crm Version: 1.0
+ * UserReqDto: lyd Date: 2017/11/22 ProjectName:crm Version: 1.0
  */
 @Getter
 @AllArgsConstructor
