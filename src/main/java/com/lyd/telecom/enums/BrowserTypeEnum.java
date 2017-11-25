@@ -17,6 +17,7 @@ public enum BrowserTypeEnum {
     CHROME("webdriver.chrome.driver","谷歌"),
 
     IE("webdriver.ie.driver","IE"),
+    IE_32("webdriver.ie.driver","IE32"),
 
     HTML("","无浏览器"),
 
@@ -38,6 +39,7 @@ public enum BrowserTypeEnum {
     public enum WebDriverType{
 
         IE("/src/main/resources/driver/IEDriverServer.exe","IE驱动"),
+        IE_32("/src/main/resources/driver/IEDriverServer_32.exe","IE32驱动"),
 
         CHROME_WINDOWS("/src/main/resources/driver/chromedriver.exe","windows谷歌驱动"),
 

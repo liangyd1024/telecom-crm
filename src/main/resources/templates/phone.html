@@ -4,7 +4,7 @@
     <title>手机号</title>
 </head>
 <body>
-    <h1 th:inline="text">输入手机号</h1>
+    <h1 th:inline="text">饿了么</h1>
     <form action="toEleLogin">
         <div>
             <div>
@@ -23,6 +23,24 @@
             <div>
                 地址:
                 <input type="text" name="url" placeholder="输入地址"/>
+            </div>
+            <div>
+                <input type="submit" value="提交"/>
+            </div>
+        </div>
+    </form>
+
+    <h1 th:inline="text">电信</h1>
+    <form action="toCrmLogin">
+        <div>
+            <div>
+                用户号:
+                <input type="text" name="userNo" placeholder="输入用户号"
+                value="dls_frtx_tjdq001"/>
+            </div>
+            <div>
+                密码:
+                <input type="text" name="pwd" placeholder="输入密码" value="tongji02"/>
             </div>
             <div>
                 <input type="submit" value="提交"/>

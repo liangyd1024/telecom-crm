@@ -12,6 +12,7 @@ import static com.lyd.telecom.enums.BrowserTypeEnum.CHROME;
 import static com.lyd.telecom.config.SysConfig.PROJECT_PATH;
 import static com.lyd.telecom.enums.BrowserTypeEnum.FIREFOX;
 import static com.lyd.telecom.enums.BrowserTypeEnum.IE;
+import static com.lyd.telecom.enums.BrowserTypeEnum.IE_32;
 
 /**
  * 描述：驱动工厂
@@ -40,6 +41,10 @@ public final class WebDriverFactory {
                     break;
                 case IE:
                     System.setProperty(IE.getType(),PROJECT_PATH+BrowserTypeEnum.WebDriverType.IE.getPath());
+                    webDriver = new InternetExplorerDriver();
+                    break;
+                case IE_32:
+                    System.setProperty(IE_32.getType(),PROJECT_PATH+BrowserTypeEnum.WebDriverType.IE_32.getPath());
                     webDriver = new InternetExplorerDriver();
                     break;
                 case HTML:

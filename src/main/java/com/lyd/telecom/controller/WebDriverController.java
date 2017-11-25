@@ -83,11 +83,14 @@ public class WebDriverController {
         @Override
         public void run() {
 
-            WebDriver webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.IE);
+            WebDriver webDriver = WebDriverFactory.getWebDriver(BrowserTypeEnum.IE_32);
             SessionCache.WEB_DRIVER_MAP.put(sessionId,webDriver);
 
             webDriver.get("https://h5.ele.me/login/");
             webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            //To click on "Continue to this website (not recommended)." link to load original website.
+            webDriver.navigate().to("javascript:document.getElementById('overridelink').click()");
 
             WebElement phoneWebElement = webDriver.findElement(By.cssSelector("body > div.App-1EAON > div.App-3Q8Qb > div:nth-child(2) > form > section:nth-child(1) > input[type=\"tel\"]"));
             phoneWebElement.sendKeys(phone);
